@@ -1,0 +1,4 @@
+backend\Person.class
+servlet\GetPersons.class
+servlet\AddPerson.class
+backend\PersonList.class

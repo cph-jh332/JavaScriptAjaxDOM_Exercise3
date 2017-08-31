@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <div id="app"></div>
+        <button id="registerPersonButton">Register</button>
+        <script>
+            var app = document.getElementById("app");
+            var url = "http://localhost:8080/JavaScriptAjaxDOM_Exercise3/GetPersons";
+            var conf = {method: "get"};
+
+            function getPersons() {
+                document.getElementById("registerPersonButton").onclick = registerPerson;
+                app.innerHTML = "";
+                var promise = fetch(url, conf);
+                promise.then(function (response) {
+                    return response.json();
+                }).then(function (json) {
+                    for (var key in json) {
+                        app.innerText += json[key].firstname + " " + json[key].lastname + "\n";
+                    }
+                });
+            }
+
+
+
+            function registerPerson() {
+                document.getElementById("registerPersonButton").onclick = addPerson;
+                app.innerHTML = "<form>" +
+                        "firstname" +
+                        "<input id=\"firstname\">" +
+                        "lastname" +
+                        "<input id=\"lastname\">" +
+                        "</form>";
+            }
+
+            function addPerson() {
+                var person = {firstname: document.getElementById("firstname").value, lastname: document.getElementById("lastname").value};
+                console.log(JSON.stringify(person));
+                fetch("http://localhost:8080/JavaScriptAjaxDOM_Exercise3/AddPerson", {method: "post", body: JSON.stringify(person)});
+                getPersons();
+            }
+
+
+
+            getPersons();
+        </script>
+    </body>
+</html>
