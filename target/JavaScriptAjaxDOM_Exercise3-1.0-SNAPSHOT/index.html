@@ -40,8 +40,9 @@
             function addPerson() {
                 var person = {firstname: document.getElementById("firstname").value, lastname: document.getElementById("lastname").value};
                 console.log(JSON.stringify(person));
-                fetch("http://localhost:8080/JavaScriptAjaxDOM_Exercise3/AddPerson", {method: "post", body: JSON.stringify(person)});
-                getPersons();
+                fetch("http://localhost:8080/JavaScriptAjaxDOM_Exercise3/AddPerson", {method: "post", body: JSON.stringify(person)}).then(function(){
+                    getPersons();
+                });
             }
 
 

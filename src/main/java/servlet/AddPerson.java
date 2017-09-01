@@ -5,10 +5,11 @@
  */
 package servlet;
 
+import backend.Person;
+import backend.PersonList;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +38,8 @@ public class AddPerson extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            System.out.println(request.getParameter("firstname"));
+            Person p = gs.fromJson(request.getReader(), Person.class);
+            PersonList.addPerson(p);
         }
     }
 
